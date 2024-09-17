@@ -1,0 +1,52 @@
+<?xml version='1.0' standalone='yes'?>
+
+<!DOCTYPE PLUGIN [
+<!ENTITY name      "lucky">
+<!ENTITY author    "Moexin">
+<!ENTITY version   "2.11.2">
+<!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unraid-lucky-plugin/main">
+<!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
+<!ENTITY pkgURL    "&gitURL;/packages">
+<!ENTITY plgPATH   "/boot/config/plugins/&name;">
+<!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
+]>
+
+<PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" support="https://github.com/Moexin/unraid-lucky-plugin/issues" min="6.8.3" icon="database">
+
+<CHANGES>
+## Lucky for UNRAID
+###2.11.2
+- release note: welcome to the first version of the package.
+</CHANGES>
+
+<FILE Name="&plgPATH;/&name;-&version;.txz" Min="6.8.3" Run="upgradepkg --install-new">
+<URL>&pkgURL;/&name;-&version;.txz</URL>
+</FILE>
+
+<FILE Run="/bin/bash">
+<INLINE>
+echo ""
+echo "-------------------------------------------------------------"
+echo " Lucky for UNRAID has been installed."
+echo " Version: &version; / Plugin Maintainer: &author;"
+echo "-------------------------------------------------------------"
+echo ""
+</INLINE>
+</FILE>
+
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+killall lucky >/dev/null 2>&amp;1
+removepkg &plgPATH;/*.txz
+rm -rf &plgPATH;
+rm -rf &emhttp;
+echo ""
+echo "-----------------------------------------------------------"
+echo " Lucky for UNRAID has been removed."
+echo " Version: &version; / Plugin Maintainer: &author;"
+echo "-----------------------------------------------------------"
+echo ""
+</INLINE>
+</FILE>
+
+</PLUGIN>
